@@ -1,0 +1,91 @@
+__author__ = "Leilani"
+__date__ = "$Aug 24, 2016 9:32:53 AM$"
+#Code that overloads the operators: str, add, eq, sub, mul and trudiv so that it 
+#works for fractions
+#overloading is done by creating a fraction class with methods that overload 
+#operators
+#Code also applies GCD or gratest common denominater
+#a method to obtain the inverse and dividing using said inverse was also 
+#created apart from the truediv overloading
+
+
+def gcd(m,n):#method that is not par of class fraction. Calculates GCD
+        while m%n != 0:
+            oldm = m
+            oldn = n
+            m = oldn
+            n = oldm%oldn
+        return n
+class Fraction:
+
+    def __init__(self,top,bottom):#Constructor method, initiates class
+
+        self.num = top
+        self.den = bottom
+        
+    def __str__(self):#method that overloads str method so print(fraction)
+    #can be used
+        return str(self.num)+"/"+str(self.den)
+    
+    def __add__(self,otherfraction):#method that overloads sum so f1+f2 can be
+    #used
+        newnum = self.num*otherfraction.den + self.den*otherfraction.num
+        newden = self.den * otherfraction.den
+        common = gcd(newnum,newden)
+        return Fraction(newnum//common,newden//common)
+    
+    def __eq__(self, other):#method that overloads eq so f1==f2 can be
+    #used
+        firstnum = self.num * other.den
+        secondnum = other.num * self.den
+        return firstnum == secondnum
+    
+    def __sub__(self,otherfraction):#method that overloads sub so f1-f2 can be
+    #used
+        newnum = self.num*otherfraction.den - self.den*otherfraction.num
+        newden = self.den * otherfraction.den
+        common = gcd(newnum,newden)
+        return Fraction(newnum//common,newden//common)
+    
+    def __mul__(self,otherfraction):#method that overloads mul so f1*f2 can be
+    #used
+        newnum = self.num*otherfraction.num
+        newden = self.den * otherfraction.den
+        common = gcd(newnum,newden)
+        return Fraction(newnum//common,newden//common)
+    
+    def __truediv__(self,otherfraction):#method that overloads trudiv so f1/f2 
+    #can be used
+        newnum = self.num*otherfraction.den
+        newden = self.den*otherfraction.num
+        common = gcd(newnum,newden)
+        return Fraction(newnum//common,newden//common)
+    
+    def inverse(self):#method that gives the inverse of f1, 1/f1 
+        newnum = self.den
+        newden = self.num
+        return Fraction(newnum,newden)
+    
+    def newDiv(self,otherfraction):#method that divides fractions, 
+    #applying inverse
+        x=otherfraction.inverse()
+        newnum = self.num*x.num
+        newden = self.den * x.den
+        common = gcd(newnum,newden)
+        return Fraction(newnum//common,newden//common)
+
+#Testing
+f1=Fraction(1,4)
+f2=Fraction(1,2)
+print(f1.__add__(f2))
+f3=f1+f2
+print(f3)
+z=f1+f2+f1
+x=f1.__add__(f2.__add__(f1))
+print(z,x) 
+f4=f3-f1
+print(f4)
+print(f1*f2)
+print(f1/f2)
+print(f1.inverse())
+print(f1.newDiv(f2))
