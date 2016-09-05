@@ -1,6 +1,6 @@
 _author__ = "Leilani"
 __date__ = "$Aug 24, 2016 9:32:53 AM$"
-#Code that overloads the operators: str, add, eq, sub, mul and trudiv so that it 
+#Code that overloads the operators: str, add, eq, sub, mul and truediv so that it 
 #works for complex numbers in component notation (x,y). NOT using i (a+bi)
 #overloading is done by creating a complex class with methods that overload 
 #operators
