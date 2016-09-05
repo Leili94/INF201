@@ -1,0 +1,56 @@
+_author__ = "Leilani"
+__date__ = "$Aug 24, 2016 9:32:53 AM$"
+#Code that overloads the operators: str, add, eq, sub, mul and trudiv so that it 
+#works for complex numbers in component notation (x,y). NOT using i (a+bi)
+#overloading is done by creating a complex class with methods that overload 
+#operators
+
+
+class Complex:
+
+    def __init__(self,real,imagine):
+         self.real = real
+         self.imag = imagine
+        
+    def __str__(self):#method that overloads str method so print(complex)
+    #can be used
+        return '(%g, %g)' % (self.real, self.imag)
+    
+    def __add__(self,other):#method that overloads sum so c1+c2 can be
+    #used
+        newRealNum = self.real + other.real
+        newImagNum = self.imag + other.imag
+        return Complex(newRealNum,newImagNum)
+    def __sub__(self,other):#method that overloads sub so c1-c2 can be
+    #used
+       newRealNum = self.real - other.real
+       newImagNum = self.imag - other.imag
+       return Complex(newRealNum,newImagNum)
+   
+    def __eq__(self, other):#method that overloads eq so c1==c2 can be
+    #used
+        return self.real == other.real and self.imag == other.imag
+    
+    def __mul__(self,other):#method that overloads mul so f1*f2 can be
+    #used (a,b)*(c,d)=(a*c-b*d,a*d+c*b)
+       newRealNum = (self.real*other.real)-(self.imag*other.imag)
+       newImagNum = (self.real*other.imag)+(other.real*self.imag)
+       return Complex(newRealNum,newImagNum)
+    
+    def __truediv__(self,other):#method that overloads trudiv so f1/f2 
+    #can be used. (a,b)/(c,d)=(ac+bd/c^2+d^2,bc+ad/c^2+d^2)
+       denom=(other.real**2+other.imag**2)
+       newRealNum = ((self.real*other.real)+(self.imag*other.imag))/denom
+       newImagNum = ((self.imag*other.real)-(self.real*other.imag))/denom
+       return Complex(newRealNum,newImagNum)
+    
+    
+#Testing
+x = Complex(1,2)
+y = Complex(2,3)
+print (x)
+print(x+y)
+print(x-y)
+print (x==y)
+print(x*y)
+print(x/y)
